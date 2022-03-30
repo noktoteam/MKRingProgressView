@@ -161,7 +161,7 @@ open class RingProgressLayer: CALayer {
     private func drawContent(in context: CGContext) {
         context.setShouldAntialias(allowsAntialiasing)
         context.setAllowsAntialiasing(allowsAntialiasing)
-        
+
         let useGradient = startColor != endColor
         
         let squareSize = min(bounds.width, bounds.height)
@@ -319,20 +319,9 @@ open class RingProgressLayer: CALayer {
               if let ringOutlineStrokeColor = ringOutlineStrokeColor {
                 context.saveGState()
 
-                context.addPath(
-                    CGPath(
-                        __byStroking: arc1Path.cgPath,
-                        transform: nil,
-                        lineWidth: 1,
-                        lineCap: progressStyle.lineCap,
-                        lineJoin: progressStyle.lineJoin,
-                        miterLimit: 0
-                    )!
-                )
-                // context.clip()
+                context.addPath(arc1Path.cgPath.copy(strokingWithWidth: w * 0.2, lineCap: .round, lineJoin: progressStyle.lineJoin, miterLimit: 0))
 
                 context.interpolationQuality = .none
-                // context.draw(gradient, in: gradientRect)
                 context.setStrokeColor(ringOutlineStrokeColor)
                 context.strokePath()
 
