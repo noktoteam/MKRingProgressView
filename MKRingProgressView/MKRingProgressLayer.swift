@@ -39,7 +39,14 @@ open class RingProgressLayer: CALayer {
             setNeedsDisplay()
         }
     }
-    
+
+  /// The progress ring end color.
+    @objc open var ringOutlineStrokeColor: CGColor? = nil {
+        didSet {
+            setNeedsDisplay()
+        }
+    }
+
     /// The color of the background ring.
     @objc open var backgroundRingColor: CGColor? {
         didSet {
@@ -308,23 +315,49 @@ open class RingProgressLayer: CALayer {
                 clockwise: true
             )
             if let gradient = gradient {
+              let hasOutline = ringOutlineStrokeColor != nil
+              if let ringOutlineStrokeColor = ringOutlineStrokeColor {
+                context.saveGState()
+
+                context.addPath(
+                    CGPath(
+                        __byStroking: arc1Path.cgPath,
+                        transform: nil,
+                        lineWidth: 1,
+                        lineCap: progressStyle.lineCap,
+                        lineJoin: progressStyle.lineJoin,
+                        miterLimit: 0
+                    )!
+                )
+                // context.clip()
+
+                context.interpolationQuality = .none
+                // context.draw(gradient, in: gradientRect)
+                context.setStrokeColor(ringOutlineStrokeColor)
+                context.strokePath()
+
+                context.restoreGState()
+              }
+
                 context.saveGState()
                 
                 context.addPath(
                     CGPath(
                         __byStroking: arc1Path.cgPath,
                         transform: nil,
-                        lineWidth: w,
+                        lineWidth: hasOutline ? w * 0.9 : w,
                         lineCap: progressStyle.lineCap,
                         lineJoin: progressStyle.lineJoin,
                         miterLimit: 0
                     )!
                 )
                 context.clip()
-                
+
                 context.interpolationQuality = .none
                 context.draw(gradient, in: gradientRect)
-                
+                context.setStrokeColor(UIColor.white.cgColor)
+                context.strokePath()
+
                 context.restoreGState()
             } else {
                 context.setStrokeColor(startColor)
