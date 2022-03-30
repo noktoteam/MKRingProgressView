@@ -305,7 +305,27 @@ open class RingProgressLayer: CALayer {
             gradientGenerator.endPoint = CGPoint(x: 0.5 - CGFloat(2 * s), y: 1.0)
             return gradientGenerator.image()
         }()
-        
+       let hasOutline = ringOutlineStrokeColor != nil
+        if let ringOutlineStrokeColor = ringOutlineStrokeColor {
+          context.saveGState()
+          let arcPath = UIBezierPath(
+                arcCenter: c,
+                radius: r,
+                startAngle: -angleOffset,
+                endAngle: angle1,
+                clockwise: true
+            )
+
+
+          context.addPath(arcPath.cgPath.copy(strokingWithWidth: w * 0.25, lineCap: .round, lineJoin: progressStyle.lineJoin, miterLimit: 0))
+
+          context.interpolationQuality = .none
+          context.setStrokeColor(ringOutlineStrokeColor)
+          context.strokePath()
+
+          context.restoreGState()
+        }
+
         if p > 0.0 {
             let arc1Path = UIBezierPath(
                 arcCenter: c,
@@ -315,18 +335,6 @@ open class RingProgressLayer: CALayer {
                 clockwise: true
             )
             if let gradient = gradient {
-              let hasOutline = ringOutlineStrokeColor != nil
-              if let ringOutlineStrokeColor = ringOutlineStrokeColor {
-                context.saveGState()
-
-                context.addPath(arc1Path.cgPath.copy(strokingWithWidth: w * 0.2, lineCap: .round, lineJoin: progressStyle.lineJoin, miterLimit: 0))
-
-                context.interpolationQuality = .none
-                context.setStrokeColor(ringOutlineStrokeColor)
-                context.strokePath()
-
-                context.restoreGState()
-              }
 
                 context.saveGState()
                 
