@@ -181,6 +181,7 @@ open class RingProgressView: UIView {
                 ringProgressLayer.startColor = startColor.cgColor
                 ringProgressLayer.endColor = endColor.cgColor
                 ringProgressLayer.backgroundRingColor = backgroundRingColor?.cgColor
+                ringProgressLayer.ringOutlineStrokeColor = ringOutlineStrokeColor?.cgColor
             }
         }
     }
