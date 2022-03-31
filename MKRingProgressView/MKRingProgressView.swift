@@ -47,9 +47,9 @@ open class RingProgressView: UIView {
         }
     }
 
-    @IBInspectable open var ringOutlineStrokeColor: CGColor? = nil {
+    @IBInspectable open var ringOutlineStrokeColor: UIColor? = nil {
         didSet {
-          ringProgressLayer.ringOutlineStrokeColor = ringOutlineStrokeColor
+          ringProgressLayer.ringOutlineStrokeColor = ringOutlineStrokeColor?.cgColor
         }
     }
     

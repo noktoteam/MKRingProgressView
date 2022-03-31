@@ -34,9 +34,9 @@ class RingProgressGroupView: UIView {
     @IBInspectable var ring1StartColor: UIColor = .red {
         didSet {
           ring1.startColor = ring1StartColor
-          ring1.ringOutlineStrokeColor = UIColor.black.cgColor
-          ring2.ringOutlineStrokeColor = UIColor.black.cgColor
-          ring3.ringOutlineStrokeColor = UIColor.black.cgColor
+          ring1.ringOutlineStrokeColor = UIColor.black
+          ring2.ringOutlineStrokeColor = UIColor.black
+          ring3.ringOutlineStrokeColor = UIColor.black
           ring1.shadowOpacity = 0.0
         }
     }
