@@ -38,6 +38,8 @@ class RingProgressGroupView: UIView {
           ring2.ringOutlineStrokeColor = UIColor.black
           ring3.ringOutlineStrokeColor = UIColor.black
           ring1.shadowOpacity = 0.0
+          ring2.shadowOpacity = 0.0
+          ring3.shadowOpacity = 0.0
         }
     }
     

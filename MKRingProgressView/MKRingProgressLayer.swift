@@ -177,6 +177,8 @@ open class RingProgressLayer: CALayer {
         let r = min(bounds.width, bounds.height) / 2 - w / 2
         let c = CGPoint(x: bounds.width / 2, y: bounds.height / 2)
         let p = max(0.0, disableProgressAnimation ? progress : presentation()?.progress ?? 0.0)
+
+      let hasOutline = ringOutlineStrokeColor != nil && p < 0.9
         let angleOffset = CGFloat.pi / 2
         let angle = 2 * .pi * p - angleOffset
         let minAngle = 1.1 * atan(0.5 * w / r)
@@ -256,8 +258,8 @@ open class RingProgressLayer: CALayer {
                         ovalIn: CGRect(
                             x: arcEnd.x - w / 2,
                             y: arcEnd.y - w / 2,
-                            width: w,
-                            height: w
+                            width: hasOutline ? w * 0.9 : w,
+                            height: hasOutline ? w * 0.9 : w
                         )
                     )
                 case .square:
@@ -305,8 +307,7 @@ open class RingProgressLayer: CALayer {
             gradientGenerator.endPoint = CGPoint(x: 0.5 - CGFloat(2 * s), y: 1.0)
             return gradientGenerator.image()
         }()
-       let hasOutline = ringOutlineStrokeColor != nil
-        if let ringOutlineStrokeColor = ringOutlineStrokeColor {
+        if let ringOutlineStrokeColor = ringOutlineStrokeColor, hasOutline {
           context.saveGState()
           let arcPath = UIBezierPath(
                 arcCenter: c,
