@@ -265,8 +265,8 @@ open class RingProgressLayer: CALayer {
                         ovalIn: CGRect(
                             x: arcEnd.x - w / 2,
                             y: arcEnd.y - w / 2,
-                            width: hasOutline ? w * 0.9 : w,
-                            height: hasOutline ? w * 0.9 : w
+                            width: hasOutline && p > 0 ? w * 0.9 : w,
+                            height: hasOutline && p > 0 ? w * 0.9 : w
                         )
                     )
                 case .square:
@@ -316,14 +316,14 @@ open class RingProgressLayer: CALayer {
         }()
         if let ringOutlineStrokeColor = ringOutlineStrokeColor, hasOutline {
           context.saveGState()
-          let arcPath = UIBezierPath(
-                arcCenter: c,
-                radius: r,
-                startAngle: -angleOffset,
-                endAngle: angle1,
-                clockwise: true
-            )
 
+          let arcPath = UIBezierPath(
+              arcCenter: c,
+              radius: r,
+              startAngle: -angleOffset,
+              endAngle: angle1,
+              clockwise: true
+          )
 
           context.addPath(arcPath.cgPath.copy(strokingWithWidth: ringOutlineStrokeWidth, lineCap: .round, lineJoin: progressStyle.lineJoin, miterLimit: 0))
 
