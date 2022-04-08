@@ -40,8 +40,15 @@ open class RingProgressLayer: CALayer {
         }
     }
 
-  /// The progress ring end color.
+    /// The progress ring end color.
     @objc open var ringOutlineStrokeColor: CGColor? = nil {
+        didSet {
+            setNeedsDisplay()
+        }
+    }
+
+    /// The progress ring end color.
+    @objc open var ringOutlineStrokeWidth: CGFloat = 1 {
         didSet {
             setNeedsDisplay()
         }
@@ -318,7 +325,7 @@ open class RingProgressLayer: CALayer {
             )
 
 
-          context.addPath(arcPath.cgPath.copy(strokingWithWidth: w * 0.25, lineCap: .round, lineJoin: progressStyle.lineJoin, miterLimit: 0))
+          context.addPath(arcPath.cgPath.copy(strokingWithWidth: ringOutlineStrokeWidth, lineCap: .round, lineJoin: progressStyle.lineJoin, miterLimit: 0))
 
           context.interpolationQuality = .none
           context.setStrokeColor(ringOutlineStrokeColor)

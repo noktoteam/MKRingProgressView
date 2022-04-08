@@ -52,6 +52,12 @@ open class RingProgressView: UIView {
           ringProgressLayer.ringOutlineStrokeColor = ringOutlineStrokeColor?.cgColor
         }
     }
+
+  @IBInspectable open var ringOutlineStrokeWidth: CGFloat = 1 {
+        didSet {
+          ringProgressLayer.ringOutlineStrokeWidth = ringOutlineStrokeWidth
+        }
+    }
     
     /// The color of backdrop circle, visible at progress values between 0.0 and 1.0.
     /// If not specified, `startColor` with 15% opacity will be used.
